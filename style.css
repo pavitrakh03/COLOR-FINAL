@@ -5,7 +5,6 @@
   --paper:      #F2EFE7;
   --paper-dim:  #E7E2D5;
   --line:       rgba(23,23,26,0.14);
-  /* the deck's own accent IS the subject: a live hue, set by JS per-slide */
   --hue: 340;
   --accent:      hsl(var(--hue) 72% 52%);
   --accent-soft: hsl(var(--hue) 72% 92%);
@@ -52,7 +51,6 @@ button{ font-family:inherit; cursor:pointer; }
 
 .slide::-webkit-scrollbar{ display:none; }
 
-/* number marker — legit here because the deck IS a lesson sequence */
 .slide-index{
   position:absolute; top: var(--gutter); left: var(--gutter);
   font-family: var(--mono); font-size:13px; letter-spacing:.02em;
