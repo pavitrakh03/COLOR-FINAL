@@ -192,7 +192,7 @@ function mountWheelDiagram() {
     holder.appendChild(svgWrap);
 }
 
-mountWheelDiagram();
+// mountWheelDiagram();
 
 
 /* ---------------------------------------------------------------------
