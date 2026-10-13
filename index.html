@@ -1,266 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Colour as an Element of Design — Fashion Studio Deck</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colour as an Element of Design — Fashion Studio Masterclass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
-<div class="dot-nav" id="dotNav"></div>
-<div class="arrow-nav">
-  <button id="prevBtn" aria-label="Previous slide">←</button>
-  <button id="nextBtn" aria-label="Next slide">→</button>
-  <span id="slideCounter">01 / 12</span>
-  <span style="margin-left:6px;">·  use <kbd>←</kbd> <kbd>→</kbd> or swipe</span>
-</div>
-<main class="deck" id="deck">
-  <!-- 00 — HERO -->
-  <section class="slide slide--hero" data-hue="340">
-    <div class="hero-wheel-wrap">
-      <div class="hero-wheel" id="heroWheel" style="aspect-ratio:1;border-radius:50%;"></div>
-    </div>
-    <div class="hero-content">
-      <p class="eyebrow">FASHION DESIGN FUNDAMENTALS · STUDIO SESSION</p>
-      <h1 class="headline">Colour, as an&nbsp;element of design.</h1>
-      <p class="lede">Before a garment has a silhouette, a fabric, or a price tag, it has a colour — and colour is the first thing the eye reads, the first thing a customer feels, and the hardest element to get right on purpose instead of by accident.</p>
-      <div class="hero-meta">
-        <div>DURATION<span>45–60 min studio session</span></div>
-        <div>FORMAT<span>12 interactive slides</span></div>
-        <div>FOR<span>Fashion design students</span></div>
+
+  <!-- Top Navigation & Progress -->
+  <header class="top-bar">
+    <div class="brand">STUDIO ATELIER <span>// FD-302</span></div>
+    <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="deck-counter" id="slideCounter">01 / 12</div>
+  </header>
+
+  <!-- Side Dot Navigation -->
+  <nav class="dot-nav" id="dotNav" aria-label="Slide navigation dots"></nav>
+
+  <!-- Floating Navigation Controls -->
+  <aside class="arrow-nav">
+    <button id="prevBtn" aria-label="Previous slide" title="Previous (←)">←</button>
+    <button id="nextBtn" aria-label="Next slide" title="Next (→)">→</button>
+    <span class="nav-hint"><kbd>←</kbd> <kbd>→</kbd> or swipe</span>
+  </aside>
+
+  <main class="deck" id="deck">
+
+    <!-- 01 — HERO / TITLE -->
+    <section class="slide slide--hero" data-hue="345">
+      <div class="hero-bg-accent"></div>
+      <div class="hero-wheel-container">
+        <div class="hero-wheel" id="heroWheel"></div>
       </div>
-    </div>
-  </section>
-  <!-- 01 — OBJECTIVES -->
-  <section class="slide" data-hue="28">
-    <div class="slide-index"><b>02</b> / 12 — Session map</div>
-    <div class="slide-body" style="align-content:center;">
-      <p class="eyebrow">TODAY'S STUDIO</p>
-      <h2 class="headline">What we're building toward.</h2>
-      <div class="grid-4" style="margin-top:12px;">
-        <div class="card"><h3>See it</h3><p>Understand hue, value and saturation as separate, controllable variables — not just "a colour."</p></div>
-        <div class="card"><h3>Combine it</h3><p>Use the six classic colour harmonies to build outfits and collections that feel intentional.</p></div>
-        <div class="card"><h3>Read it</h3><p>Connect colour psychology and cultural meaning to how a customer feels in a garment.</p></div>
-        <div class="card"><h3>Apply it</h3><p>Build your own palette in the studio activity, then defend your choices in the discussion.</p></div>
-      </div>
-      <p class="body-copy" style="margin-top:8px;">Keep this open on a laptop or tablet — every diagram in this deck responds to your input, so treat it like a swatch table, not a slideshow.</p>
-    </div>
-  </section>
-  <!-- 02 — WHAT IS COLOUR + HSL LAB -->
-  <section class="slide" data-hue="205">
-    <div class="slide-index"><b>03</b> / 12 — Foundations</div>
-    <div class="slide-body">
-      <div class="grid-2">
-        <div>
-          <p class="eyebrow">FOUNDATIONS</p>
-          <h2 class="headline">Colour is three variables wearing a trench coat.</h2>
-          <p class="body-copy" style="margin-top:14px;">
-            Every colour a designer works with — from a raw pigment to a dye lot to a screen swatch — can be described with three independent controls:
-          </p>
-          <p class="body-copy" style="margin-top:12px;"><strong>Hue</strong> — the colour family itself: red, teal, violet. This is what most people mean when they say "colour."<br><br>
-          <strong>Saturation</strong> — how pure or muted the hue is. High saturation reads as bold and directional; low saturation reads as quiet, worn-in, tonal.<br><br>
-          <strong>Value (Lightness)</strong> — how light or dark it sits. Value is what does the heavy lifting for contrast, mood, and photographing well.</p>
-          <p class="body-copy" style="margin-top:12px;">A single hue can look like ten different garments depending on how you move these two dials — try it.</p>
+      <div class="slide-content hero-content">
+        <p class="eyebrow">FASHION DESIGN FUNDAMENTALS · STUDIO INTENSIVE</p>
+        <h1 class="headline-hero">Colour, as an <em>element of design</em>.</h1>
+        <p class="lede">
+          Before a garment reveals its silhouette, grainline, or stitching, it broadcasts its colour. 
+          Colour is the first visual signal the brain decodes, the emotional anchor of a collection, 
+          and the single discipline where instinct must meet rigorous technical structure.
+        </p>
+        <div class="meta-strip">
+          <div class="meta-item"><strong>DURATION</strong><span>45–60 min studio session</span></div>
+          <div class="meta-item"><strong>FORMAT</strong><span>12 interactive slides</span></div>
+          <div class="meta-item"><strong>DISCIPLINE</strong><span>Fashion Design & Merchandising</span></div>
         </div>
-        <div class="lab">
-          <div class="lab-controls">
-            <div class="control"><label><span>Hue</span><span id="hueVal">340°</span></label><input type="range" id="hueSlider" min="0" max="360" value="340"></div>
-            <div class="control"><label><span>Saturation</span><span id="satVal">72%</span></label><input type="range" id="satSlider" min="0" max="100" value="72"></div>
-            <div class="control"><label><span>Value (Lightness)</span><span id="lightVal">52%</span></label><input type="range" id="lightSlider" min="5" max="95" value="52"></div>
-            <p class="lab-readout" id="hexReadout">#C22868</p>
+      </div>
+    </section>
+
+    <!-- 02 — OBJECTIVES -->
+    <section class="slide" data-hue="28">
+      <div class="slide-tag"><b>02</b> / 12 — SYLLABUS & GOALS</div>
+      <div class="slide-content centered-flow">
+        <p class="eyebrow">STUDIO ROADMAP</p>
+        <h2 class="headline">What we are building toward today.</h2>
+        <div class="grid-4 roadmap-grid">
+          <div class="card card--accented">
+            <span class="step-num">01</span>
+            <h3>Deconstruct</h3>
+            <p>Master Hue, Saturation, and Value (Lightness) as three independent, calibratable variables rather than vague shades.</p>
           </div>
-          <div class="lab-preview">
-            <div class="figure-wrap">
-              <div id="labSwatchBig" class="swatch lg" style="background:#C22868;"></div>
-              <p class="figure-cap">Swatch</p>
-            </div>
-            <div class="figure-wrap" id="labGarment">
-              <p class="figure-cap">Garment</p>
-            </div>
+          <div class="card card--accented">
+            <span class="step-num">02</span>
+            <h3>Harmonize</h3>
+            <p>Harness the 12-hue artist color wheel to generate six classical harmonies that anchor coherent runway collections.</p>
+          </div>
+          <div class="card card--accented">
+            <span class="step-num">03</span>
+            <h3>Decode</h3>
+            <p>Connect physiological perception, cultural coding, and undertone contrast to how garments communicate on the human body.</p>
+          </div>
+          <div class="card card--accented">
+            <span class="step-num">04</span>
+            <h3>Synthesize</h3>
+            <p>Build, test, and defend a 5-piece capsule color story in our interactive palette atelier ready for studio critique.</p>
           </div>
         </div>
+        <p class="footnote">Use a laptop or tablet for this workshop — every silhouette and diagram responds dynamically to your inputs.</p>
       </div>
-    </div>
-  </section>
-  <!-- 03 — THE COLOR WHEEL -->
-  <section class="slide" data-hue="150">
-    <div class="slide-index"><b>04</b> / 12 — Foundations</div>
-    <div class="slide-body">
-      <div class="grid-2">
-        <div>
-          <p class="eyebrow">THE WHEEL</p>
-          <h2 class="headline">Twelve hues, one map.</h2>
-          <p class="body-copy" style="margin-top:14px;">
-            <strong>Primary</strong> — red, yellow, blue. Can't be mixed from anything else; every other hue is built from these.<br><br>
-            <strong>Secondary</strong> — orange, green, violet. Two primaries mixed in equal parts.<br><br>
-            <strong>Tertiary</strong> — the six in-between hues (red-orange, yellow-green…), named for the primary and secondary they sit next to.
-          </p>
-          <p class="body-copy" style="margin-top:14px;">
-            Split the wheel in half and you get <strong>warm</strong> (red through yellow — advances, energises, flatters most golden undertones) and <strong>cool</strong> (green through violet — recedes, calms, flatters most pink/blue undertones). Fashion collections often lead with one temperature and use the other as accent.
-          </p>
+    </section>
+
+    <!-- 03 — WHAT IS COLOUR + HSL LAB -->
+    <section class="slide" data-hue="200">
+      <div class="slide-tag"><b>03</b> / 12 — CHROMATIC FOUNDATIONS</div>
+      <div class="slide-content">
+        <div class="grid-2 align-center">
+          <div>
+            <p class="eyebrow">THE THREE AXES</p>
+            <h2 class="headline">Colour is three distinct variables acting in unison.</h2>
+            <p class="body-copy">
+              A fashion designer never simply specifies "green." A fabric swatch or dye recipe relies on three distinct coordinates:
+            </p>
+            <div class="variable-list">
+              <div class="var-item">
+                <strong>1. Hue (The Family)</strong>
+                <p>The pure spectral wavelength (e.g., Emerald, Ochre, Crimson). Defines where the shade sits on the chromatic spectrum.</p>
+              </div>
+              <div class="var-item">
+                <strong>2. Saturation (The Intensity)</strong>
+                <p>The purity or chroma. High saturation commands runway presence; low saturation introduces grounded, quiet, utilitarian luxury.</p>
+              </div>
+              <div class="var-item">
+                <strong>3. Value (The Luminance)</strong>
+                <p>Relative lightness or darkness. Value dictates silhouette visibility, photographic contrast, and visual weight on the figure.</p>
+              </div>
+            </div>
+          </div>
+          <div class="lab-card">
+            <div class="lab-header">
+              <span class="tag">CHROMATIC SPECIFICATION LAB</span>
+              <button class="copy-hex-btn" id="copyHexBtn" title="Click to copy HEX">Copy Hex</button>
+            </div>
+            <div class="lab-controls">
+              <div class="slider-group">
+                <div class="slider-label"><span>Hue</span><b id="hueVal">345°</b></div>
+                <input type="range" id="hueSlider" min="0" max="360" value="345">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label"><span>Saturation (Chroma)</span><b id="satVal">75%</b></div>
+                <input type="range" id="satSlider" min="0" max="100" value="75">
+              </div>
+              <div class="slider-group">
+                <div class="slider-label"><span>Value (Lightness)</span><b id="lightVal">50%</b></div>
+                <input type="range" id="lightSlider" min="10" max="90" value="50">
+              </div>
+            </div>
+            <div class="lab-outputs">
+              <div class="swatch-inspector">
+                <div id="labSwatchBig" class="swatch-tile"></div>
+                <div class="swatch-details">
+                  <span class="code-readout" id="hexReadout">#E02050</span>
+                  <span class="sub-readout" id="rgbReadout">rgb(224, 32, 80)</span>
+                </div>
+              </div>
+              <div class="garment-render-box" id="labGarment"></div>
+            </div>
+          </div>
         </div>
-        <div style="display:flex; justify-content:center;">
-         <img src="./color-wheel.jpg" alt="12-part Color Wheel" style="width: 100%; max-width: 400px; margin: 0 auto; display: block;">
+      </div>
+    </section>
+
+    <!-- 04 — THE FASHION ARTIST COLOR WHEEL -->
+    <section class="slide" data-hue="135">
+      <div class="slide-tag"><b>04</b> / 12 — THE WHEEL GEOMETRY</div>
+      <div class="slide-content">
+        <div class="grid-2 align-center">
+          <div>
+            <p class="eyebrow">THE 12-HUE FASHION WHEEL</p>
+            <h2 class="headline">Twelve hues, one systematic design compass.</h2>
+            <p class="body-copy">
+              Unlike digital displays that rely on additive RGB, traditional fashion dye formulations and garment styling are rooted in the <strong>Subtractive / Artist Color Model (RYB)</strong>.
+            </p>
+            <div class="wheel-legend-list">
+              <div class="legend-row">
+                <span class="badge badge--primary">Primary</span>
+                <p><strong>Red, Yellow, Blue</strong> — Foundational pigments that cannot be created by mixing other dyes.</p>
+              </div>
+              <div class="legend-row">
+                <span class="badge badge--secondary">Secondary</span>
+                <p><strong>Orange, Green, Violet</strong> — Generated by balancing two primaries in equal measure.</p>
+              </div>
+              <div class="legend-row">
+                <span class="badge badge--tertiary">Tertiary</span>
+                <p><strong>Red-Orange, Yellow-Orange, Yellow-Green, Blue-Green, Blue-Violet, Red-Violet</strong> — The nuanced bridge shades.</p>
+              </div>
+            </div>
+            <div class="callout-box">
+              <strong>Warm vs. Cool Meridian:</strong>
+              Warm hues (Red through Yellow) advance forward optically, projecting energy. Cool hues (Green through Violet) recede, evoking restraint and serenity.
+            </div>
+          </div>
+
+          <div class="wheel-display-column">
+            <div class="wheel-interactive-frame" id="wheelDiagramHolder"></div>
+            <div class="wheel-selected-readout" id="wheelSelectedText">
+              Click any color wedge or node to inspect its classification
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- 04 — HARMONIES -->
-  <section class="slide" data-hue="265">
-    <div class="slide-index"><b>05</b> / 12 — Building palettes</div>
-    <div class="slide-body">
-      <p class="eyebrow">COLOUR HARMONY</p>
-      <h2 class="headline">Six ways to combine hues on purpose.</h2>
-      <div class="harmony-tabs" id="harmonyTabs">
-        <button data-h="mono" class="active">Monochromatic</button>
-        <button data-h="analogous">Analogous</button>
-        <button data-h="complementary">Complementary</button>
-        <button data-h="split">Split-Complementary</button>
-        <button data-h="triadic">Triadic</button>
-        <button data-h="tetradic">Tetradic</button>
-      </div>
-      <div class="harmony-figures">
-        <div class="harmony-wheel-mini" id="harmonyWheel"></div>
-        <div>
-          <div class="swatch-row" id="harmonySwatches" style="margin-bottom:16px;"></div>
-          <div class="harmony-desc">
+    </section>
+
+    <!-- 05 — HARMONIES -->
+    <section class="slide" data-hue="270">
+      <div class="slide-tag"><b>05</b> / 12 — HARMONIC COMPOSITION</div>
+      <div class="slide-content">
+        <p class="eyebrow">COLLECTION COHESION</p>
+        <h2 class="headline">Six deliberate methods to orchestrate color.</h2>
+        
+        <div class="tabs-bar" id="harmonyTabs">
+          <button data-h="mono" class="tab-btn active">Monochromatic</button>
+          <button data-h="analogous" class="tab-btn">Analogous</button>
+          <button data-h="complementary" class="tab-btn">Complementary</button>
+          <button data-h="split" class="tab-btn">Split-Complementary</button>
+          <button data-h="triadic" class="tab-btn">Triadic</button>
+          <button data-h="tetradic" class="tab-btn">Tetradic</button>
+        </div>
+
+        <div class="harmony-showcase">
+          <div class="harmony-preview-col">
+            <div class="harmony-wheel-wrap" id="harmonyWheelSvg"></div>
+            <span class="caption">Harmonic Chord Projection</span>
+          </div>
+
+          <div class="harmony-details-col">
+            <h3 id="harmonyTitle">Monochromatic Harmony</h3>
             <p class="body-copy" id="harmonyDesc"></p>
+            <div class="swatch-strip" id="harmonySwatches"></div>
+            <div class="fashion-ratio-note">
+              <strong>Studio Guideline (60-30-10 Rule):</strong>
+              Allocate 60% of silhouette area to the dominant hue, 30% to the supporting secondary tone, and 10% to focal accessories or trim.
+            </div>
           </div>
-        </div>
-        <div class="figure-wrap" id="harmonyGarment" style="margin-left:auto;">
-          <p class="figure-cap">Look built from this harmony</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- 05 — PSYCHOLOGY -->
-  <section class="slide" data-hue="10">
-    <div class="slide-index"><b>06</b> / 12 — Meaning</div>
-    <div class="slide-body">
-      <p class="eyebrow">COLOUR PSYCHOLOGY</p>
-      <h2 class="headline">A colour is a message before it's a fabric.</h2>
-      <p class="body-copy">Association isn't universal — it shifts by culture, context and era — but these are the reads a Western fashion market most commonly makes at first glance. Ask your students to challenge each one.</p>
-      <div class="grid-4" style="margin-top:18px;">
-        <div class="card" style="border-top:6px solid #C81D25;"><h3>Red</h3><p>Power, desire, urgency. The colour of a "look at me" garment — worn for confidence, warning, or celebration.</p></div>
-        <div class="card" style="border-top:6px solid #1F3A93;"><h3>Blue</h3><p>Trust, calm, corporate stability. The safest colour in a professional wardrobe — also the most-liked colour globally.</p></div>
-        <div class="card" style="border-top:6px solid #E8B800;"><h3>Yellow</h3><p>Optimism, energy, caution. Hardest to wear near the face for some undertones; loudest colour on a rack.</p></div>
-        <div class="card" style="border-top:6px solid #1E7B45;"><h3>Green</h3><p>Growth, nature, and — increasingly — sustainability signalling in fashion marketing.</p></div>
-        <div class="card" style="border-top:6px solid #6B2FA0;"><h3>Purple</h3><p>Luxury, creativity, royalty. Historically expensive to dye — the rarity became the meaning.</p></div>
-        <div class="card" style="border-top:6px solid #E8637C;"><h3>Pink</h3><p>Softness or rebellion depending on saturation — millennial pink reads calm; hot pink reads defiant.</p></div>
-        <div class="card" style="border-top:6px solid #17171A;"><h3>Black</h3><p>Authority, mystery, timelessness. The default "safe" choice — and the hardest to make feel new.</p></div>
-        <div class="card" style="border-top:6px solid #D9D2C2;"><h3>White</h3><p>Purity, minimalism, a blank canvas. Culture-dependent — mourning colour in parts of East Asia.</p></div>
-      </div>
-    </div>
-  </section>
-  <!-- 06 — UNDERTONES + SEASONS -->
-  <section class="slide" data-hue="35">
-    <div class="slide-index"><b>07</b> / 12 — Colour & the body</div>
-    <div class="slide-body">
-      <p class="eyebrow">COLOUR ANALYSIS</p>
-      <h2 class="headline">The same red doesn't flatter every complexion.</h2>
-      <p class="body-copy">Seasonal colour analysis groups flattering palettes by <strong>undertone</strong> (warm/gold vs cool/pink) and <strong>contrast level</strong> — not by literal season. It's a styling tool, not a rulebook: use it to explain <em>why</em> a colour reads differently on different people, not to limit anyone.</p>
-      <div class="grid-4" style="margin-top:16px;">
-        <div class="season-card" id="season-spring"></div>
-        <div class="season-card" id="season-summer"></div>
-        <div class="season-card" id="season-autumn"></div>
-        <div class="season-card" id="season-winter"></div>
-      </div>
-    </div>
-  </section>
-  <!-- 07 — TREND FORECASTING -->
-  <section class="slide" data-hue="185">
-    <div class="slide-index"><b>08</b> / 12 — Colour & the market</div>
-    <div class="slide-body">
-      <div class="grid-2">
-        <div>
-          <p class="eyebrow">FORECASTING</p>
-          <h2 class="headline">Colour is decided years before it's worn.</h2>
-          <p class="body-copy" style="margin-top:14px;">Forecasting services study runway data, street style, economics and even mood — recession years trend toward comforting neutrals; optimistic years trend toward saturated brights. A "Colour of the Year" call from a forecasting agency ripples through fast fashion within a single season.</p>
-          <p class="body-copy" style="margin-top:12px;">Ask students: what colour has dominated the racks around you this month — and what do they think it's signalling about the moment?</p>
-        </div>
-        <div class="card" style="padding:26px;">
-          <h3 style="margin-bottom:14px;">The forecasting pipeline</h3>
-          <div style="display:flex; flex-direction:column; gap:0;">
-            <div class="moment-card" style="grid-template-columns:34px 1fr; border-top:none;"><div class="moment-swatch" style="height:34px;width:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">1</div><p style="font-size:13.5px;">Trend agencies scout runway, art, culture &amp; textiles — <em>18–24 months out.</em></p></div>
-            <div class="moment-card" style="grid-template-columns:34px 1fr;"><div class="moment-swatch" style="height:34px;width:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">2</div><p style="font-size:13.5px;">Textile mills commit to dye lots based on forecast palettes.</p></div>
-            <div class="moment-card" style="grid-template-columns:34px 1fr;"><div class="moment-swatch" style="height:34px;width:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">3</div><p style="font-size:13.5px;">Designers select from what mills produce — <em>6–12 months out.</em></p></div>
-            <div class="moment-card" style="grid-template-columns:34px 1fr; border-bottom:none;"><div class="moment-swatch" style="height:34px;width:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;">4</div><p style="font-size:13.5px;">Retail floors show the colour — <em>the season you actually see it.</em></p></div>
+
+          <div class="harmony-garment-col">
+            <div class="garment-figure-card" id="harmonyGarment"></div>
+            <span class="caption">Curated Ensemble Silhouette</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- 08 — ICONIC MOMENTS -->
-  <section class="slide" data-hue="350">
-    <div class="slide-index"><b>09</b> / 12 — Colour in history</div>
-    <div class="slide-body">
-      <p class="eyebrow">CASE STUDIES</p>
-      <h2 class="headline">When a colour became the brand.</h2>
-      <div id="momentsList"></div>
-    </div>
-  </section>
-  <!-- 09 — STUDIO ACTIVITY: PALETTE BUILDER -->
-  <section class="slide" data-hue="95">
-    <div class="slide-index"><b>10</b> / 12 — Studio activity</div>
-    <div class="slide-body">
-      <p class="eyebrow">TRY IT</p>
-      <h2 class="headline">Build a capsule palette.</h2>
-      <p class="body-copy">Pick a base colour, choose a harmony rule, and design a 5-piece capsule around it. Screenshot your result for critique.</p>
-      <div class="builder">
-        <div class="builder-row">
-          <label class="body-copy" style="margin:0;">Base colour:</label>
-          <input type="color" id="builderColor" value="#C22868">
-          <label class="body-copy" style="margin:0 0 0 12px;">Harmony:</label>
-          <select id="builderHarmony" style="font-family:var(--mono); font-size:12px; padding:8px 12px; border-radius:99px; border:1px solid var(--ink); background:transparent;">
-            <option value="mono">Monochromatic</option>
-            <option value="analogous">Analogous</option>
-            <option value="complementary">Complementary</option>
-            <option value="split">Split-Complementary</option>
-            <option value="triadic">Triadic</option>
-            <option value="tetradic">Tetradic</option>
-          </select>
-          <button class="mini-btn" id="builderRandom">🎲 Surprise me</button>
-        </div>
-        <div class="grid-2" style="align-items:center;">
-          <div class="builder-swatches" id="builderSwatches"></div>
-          <div class="builder-figure" style="display:flex; gap:18px; justify-content:center;" id="builderGarments"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- 10 — DISCUSSION / QUIZ -->
-  <section class="slide" data-hue="255">
-    <div class="slide-index"><b>11</b> / 12 — Check your understanding</div>
-    <div class="slide-body">
-      <p class="eyebrow">FOR STUDENTS</p>
-      <h2 class="headline">Discussion &amp; quick-check questions.</h2>
-      <div class="quiz-list" id="quizList"></div>
-    </div>
-  </section>
-  <!-- 11 — CLOSING -->
-  <section class="slide" data-hue="340">
-    <div class="slide-index"><b>12</b> / 12 — Close</div>
-    <div class="slide-body" style="align-content:center;">
-      <p class="eyebrow">SESSION COMPLETE</p>
-      <h2 class="headline">Colour is a decision, not a default.</h2>
-      <div class="closing-grid" style="margin-top:18px;">
-        <p class="body-copy">Every hue on a rack was chosen — by a forecaster, a buyer, a designer, or, now, by you. The habit this session should leave behind: before picking a colour, name the hue, the harmony, and the feeling you're going for, out loud, on purpose.</p>
-        <div>
-          <p style="font-family:var(--mono); font-size:12px; margin-bottom:8px; opacity:.6;">FURTHER READING &amp; TOOLS</p>
-          <div class="credit-list">
-            Adobe Color — build &amp; extract palettes<br>
-            Pantone Fashion Color Trend Reports<br>
-            WGSN — trend forecasting (institutional access)<br>
-            Josef Albers, <em>Interaction of Color</em><br>
-            Johannes Itten, <em>The Art of Color</em>
+    </section>
+
+    <!-- 06 — PSYCHOLOGY -->
+    <section class="slide" data-hue="12">
+      <div class="slide-tag"><b>06</b> / 12 — MEANING & SEMIOTICS</div>
+      <div class="slide-content">
+        <p class="eyebrow">SEMIOTICS OF DRESS</p>
+        <h2 class="headline">A colour is an emotional declaration before it is a garment.</h2>
+        <p class="body-copy max-w">
+          Garment chromaticity instantly influences physiological response, social hierarchy, and perceived retail luxury. Cultural contexts shift these perceptions, but these classic semitone reads dominate commercial fashion:
+        </p>
+        <div class="grid-4 psychology-grid">
+          <div class="card card--color-top" style="--c:#C81D25;">
+            <div class="swatch-indicator"></div>
+            <h3>Red</h3>
+            <span class="keyword">Power · Drama · Urgency</span>
+            <p>Advancing optical wavelength. Provokes heart rate elevation; historical symbol of sovereignty, passion, and high-visibility tailoring.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#1D4E89;">
+            <div class="swatch-indicator"></div>
+            <h3>Blue</h3>
+            <span class="keyword">Authority · Trust · Serenity</span>
+            <p>The cornerstone of executive tailored wardrobes globally. Blue projects loyalty and calm stability across formal daywear.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#E8B800;">
+            <div class="swatch-indicator"></div>
+            <h3>Yellow</h3>
+            <span class="keyword">Intellect · Optimism · Danger</span>
+            <p>Highest luminosity in the visible spectrum. Commands immediate shelf attention, frequently reserved for resort wear or sharp high-contrast accents.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#1E7B45;">
+            <div class="swatch-indicator"></div>
+            <h3>Green</h3>
+            <span class="keyword">Vitality · Nature · Renewal</span>
+            <p>Positioned dead center on visible wavelengths. Eases eye strain, signalling sustainability, bio-design, and organic luxury.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#6B2FA0;">
+            <div class="swatch-indicator"></div>
+            <h3>Purple</h3>
+            <span class="keyword">Opulence · Mystic · Nobility</span>
+            <p>Historically extracted from rare Tyrian snails, forever tethering violet tones to exclusivity, couture richness, and ecclesiastical dignity.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#E8637C;">
+            <div class="swatch-indicator"></div>
+            <h3>Pink</h3>
+            <span class="keyword">Playfulness · Rebellion · Modernity</span>
+            <p>From 18th-century court masculine attire to Elsa Schiaparelli’s Shocking Pink and millennial neutralism, pink disrupts traditional boundaries.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#18181B;">
+            <div class="swatch-indicator"></div>
+            <h3>Black</h3>
+            <span class="keyword">Sartorial Rigor · Elegance · Shield</span>
+            <p>Total absorption of light. The default canvas of Parisian couture and modernist tailoring; absorbs shadows to emphasize pure silhouette cut.</p>
+          </div>
+          <div class="card card--color-top" style="--c:#E7E4DC;">
+            <div class="swatch-indicator"></div>
+            <h3>White / Off-White</h3>
+            <span class="keyword">Purity · Modernism · Blank Slate</span>
+            <p>Maximum reflectance. Projects quiet architectural poise in Western collections, while signifying mourning and rebirth in East Asian traditions.</p>
           </div>
         </div>
       </div>
-      <p style="font-family:var(--mono); font-size:11px; opacity:.5; margin-top:30px;">Deck built as an open, editable HTML/CSS/JS file — fork it, recolour it, add your own slides.</p>
-    </div>
-  </section>
-</main>
-<script src="script.js"></script>
+    </section>
+
+    <!-- 07 — UNDERTONES + SEASONS -->
+    <section class="slide" data-hue="36">
+      <div class="slide-tag"><b>07</b> / 12 — COLOUR & THE HUMAN BODY</div>
+      <div class="slide-content">
+        <p class="eyebrow">SEASONAL CHROMATIC ANALYSIS</p>
+        <h2 class="headline">The identical hue does not flatter every skin tone.</h2>
+        <p class="body-copy max-w">
+          Personal styling and bespoke tailoring rely on <strong>Subcutaneous Undertones</strong> (warm golden/peachy vs. cool pink/olive) and <strong>Value Contrast</strong>. We analyze palettes by chromatic compatibility, not literal calendar months:
+        </p>
+        <div class="grid-4 seasons-container" id="seasonsContainer"></div>
+      </div>
+    </section>
+
+    <!-- 08 — TREND FORECASTING -->
+    <section class="slide" data-hue="188">
+      <div class="slide-tag"><b>08</b> / 12 — THE MARKET & INDUSTRIAL TIMELINE</div>
+      <div class="slide-content">
+        <div class="grid-2 align-center">
+          <div>
+            <p class="eyebrow">FORECASTING MECHANICS</p>
+            <h2 class="headline">A season's colour is locked years before it reaches the hanger.</h2>
+            <p class="body-copy">
+              Color in the global garment sector is rarely accidental. Macro-forecasting agencies (such as WGSN, Peclers, and the Pantone Color Institute) monitor macroeconomic indicators, film releases, geopolitical climates, and raw textile supply chains:
+            </p>
+            <div class="insight-box">
+              <span class="quote">“Recessionary eras consistently witness a retreat toward grounding earthen neutrals and charcoal security, while post-crisis periods unleash explosive surges of hyper-saturated chromatic optimism.”</span>
+            </div>
+            <p class="footnote">Studio Discussion: Look around the room today — what single hue dominates your colleagues' outerwear, and what does it communicate about our cultural climate?</p>
+          </div>
+
+          <div class="timeline-card">
+            <h3>Industrial Pipeline to Retail</h3>
+            <div class="pipeline">
+              <div class="pipeline-step">
+                <div class="step-badge">01</div>
+                <div class="step-text">
+                  <strong>Macro Intelligence (24–18 Months Out)</strong>
+                  <p>Global trend forecasters synthesize cultural signals into thematic mood boards and directional color families.</p>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <div class="step-badge">02</div>
+                <div class="step-text">
+                  <strong>Spinning & Dye Lots (18–12 Months Out)</strong>
+                  <p>Yarn spinners and textile mills formulate Master Dye Batches for presentation at Premier Vision in Paris.</p>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <div class="step-badge">03</div>
+                <div class="step-text">
+                  <strong>Atelier Design Selection (12–6 Months Out)</strong>
+                  <p>Fashion houses finalize collection line-sheets, strike-offs, and lab dips against mill availability.</p>
+                </div>
+              </div>
+              <div class="pipeline-step">
+                <div class="step-badge">04</div>
+                <div class="step-text">
+                  <strong>Runway to Retail Floors (Present Day)</strong>
+                  <p>Collections hit flagship windows and e-commerce racks, cascading immediately into mass-market fast fashion.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 — ICONIC MOMENTS IN FASHION -->
+    <section class="slide" data-hue="350">
+      <div class="slide-tag"><b>09</b> / 12 — HISTORICAL CASE STUDIES</div>
+      <div class="slide-content">
+        <p class="eyebrow">ARCHIVAL INFLUENCE</p>
+        <h2 class="headline">When a specific hue defined the brand dynasty.</h2>
+        <p class="body-copy max-w">
+          When executed with relentless consistency, a single targeted hue can become intellectual property far more valuable than a graphic logo:
+        </p>
+        <div class="moments-grid" id="momentsGrid"></div>
+      </div>
+    </section>
+
+    <!-- 10 — STUDIO ACTIVITY: PALETTE BUILDER -->
+    <section class="slide" data-hue="95">
+      <div class="slide-tag"><b>10</b> / 12 — ATELIER WORKSHOP</div>
+      <div class="slide-content">
+        <p class="eyebrow">STUDIO EXERCISE</p>
+        <h2 class="headline">Curate your capsule collection palette.</h2>
+        <p class="body-copy max-w">
+          Select a foundational base hue, apply an architectural harmony rule, and evaluate how the generated color story distributes across an evening gown and an outerwear silhouette:
+        </p>
+
+        <div class="palette-builder-workbench">
+          <div class="builder-toolbar">
+            <div class="control-unit">
+              <label for="builderColor">Foundation Dye Swatch:</label>
+              <div class="color-picker-wrap">
+                <input type="color" id="builderColor" value="#9E2A2B">
+                <span class="hex-badge" id="builderColorHex">#9E2A2B</span>
+              </div>
+            </div>
+
+            <div class="control-unit">
+              <label for="builderHarmony">Harmonic Model:</label>
+              <select id="builderHarmony" class="atelier-select">
+                <option value="mono">Monochromatic (Tone-on-Tone)</option>
+                <option value="analogous" selected>Analogous (Adjacent Undertones)</option>
+                <option value="complementary">Complementary (Polar Voltage)</option>
+                <option value="split">Split-Complementary (Nuanced Contrast)</option>
+                <option value="triadic">Triadic (Dynamic Balance)</option>
+                <option value="tetradic">Tetradic (Four-Corner Drama)</option>
+              </select>
+            </div>
+
+            <button class="atelier-btn" id="builderRandomBtn">🎲 Surprise Palette</button>
+          </div>
+
+          <div class="builder-stage">
+            <div class="swatches-area">
+              <span class="section-label">Generated Collection Colorway</span>
+              <div class="swatches-deck" id="builderSwatches"></div>
+            </div>
+
+            <div class="renders-area">
+              <span class="section-label">Garment Silhouette Prototyping</span>
+              <div class="ensemble-duo" id="builderEnsemble"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 — DISCUSSION / QUIZ -->
+    <section class="slide" data-hue="250">
+      <div class="slide-tag"><b>11</b> / 12 — CRITIQUE & COMPREHENSION</div>
+      <div class="slide-content">
+        <p class="eyebrow">STUDIO CRITIQUE</p>
+        <h2 class="headline">Comprehension checks & classroom discussion.</h2>
+        <p class="body-copy max-w">
+          Engage these questions individually or in peer studio pairs to test your technical vocabulary:
+        </p>
+        <div class="quiz-stack" id="quizStack"></div>
+      </div>
+    </section>
+
+    <!-- 12 — CLOSING -->
+    <section class="slide slide--closing" data-hue="345">
+      <div class="slide-tag"><b>12</b> / 12 — SESSION CONCLUSION</div>
+      <div class="slide-content centered-flow">
+        <p class="eyebrow">THE TAKEAWAY</p>
+        <h2 class="headline-closing">Colour is an intentional design choice, never an afterthought.</h2>
+        <div class="closing-layout">
+          <div class="manifesto-card">
+            <p class="body-copy">
+              Every yard of cloth on a Parisian runway or luxury showroom floor was decided by intention. 
+              The habit this atelier leaves behind: <em>Never commit to a fabric or styling choice without 
+              being able to state its Hue family, its Value contrast, its Saturation level, and the psychological 
+              story it demands from the wearer.</em>
+            </p>
+          </div>
+          <div class="bibliography-card">
+            <h3>Essential Reading & Studio References</h3>
+            <ul class="resources-list">
+              <li><strong>Johannes Itten</strong> — <em>The Art of Color</em> (The Bauhaus Foundation)</li>
+              <li><strong>Josef Albers</strong> — <em>Interaction of Color</em> (Yale University Press)</li>
+              <li><strong>Kassia St Clair</strong> — <em>The Secret Lives of Colour</em></li>
+              <li><strong>WGSN Fashion</strong> — Color Direction & Seasonal Macro Forecasting</li>
+              <li><strong>Pantone Connect</strong> — Master TCX / FHI Textile Chromatic Standards</li>
+            </ul>
+          </div>
+        </div>
+        <p class="git-note">Designed and programmed for Fashion Studios · Fully self-contained pure HTML/CSS/JS</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
