@@ -6,31 +6,37 @@
    0\. small color utilities
    --------------------------------------------------------------------- */
 function hsl(h, s, l){ return `hsl(${((h%360)+360)%360} ${s}% ${l}%)`; }
-function hslToHex(h, s, l){
-  s/=100; l/=100;
-  const k = n => (n + h/30) % 12;
-  const a = s * Math.min(l, 1-l);
-  const f = n => l - a*Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n), 1)));
-  const toHex = x => Math.round(255*x).toString(16).padStart(2,'0');
-  return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`.toUpperCase();
+
+function hslToHex(h, s, l) {
+    s /= 100;
+    l /= 100;
+    const k = n => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+    const toHex = x => Math.round(255 * x).toString(16).padStart(2, '0');
+    return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`.toUpperCase();
 }
 
-function hexToHsl(hex){
-  let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
-  const max=Math.max(r,g,b), min=Math.min(r,g,b);
-  let h,s,l=(max+min)/2;
-  if(max===min){ h=s=0; }
-  else{
-    const d=max-min;
-    s = l>0.5 ? d/(2-max-min) : d/(max+min);
-    switch(max){
-      case r: h=(g-b)/d+(g<b?6:0); break;
-      case g: h=(b-r)/d+2; break;
-      case b: h=(r-g)/d+4; break;
+function hexToHsl(hex) {
+    let r = parseInt(hex.slice(1, 3), 16) / 255,
+        g = parseInt(hex.slice(3, 5), 16) / 255,
+        b = parseInt(hex.slice(5, 7), 16) / 255;
+    const max = Math.max(r, g, b),
+        min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) {
+        h = s = 0;
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h *= 60;
     }
-    h*=60;
-  }
-  return {h:Math.round(h), s:Math.round(s*100), l:Math.round(l*100)};
+    return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
 }
 
 /* ---------------------------------------------------------------------
@@ -44,41 +50,41 @@ const slideCounter = document.getElementById('slideCounter');
 let current = 0;
 
 slides.forEach((s, i) => {
-  const b = document.createElement('button');
-  b.addEventListener('click', () => goTo(i));
-  dotNav.appendChild(b);
+    const b = document.createElement('button');
+    b.addEventListener('click', () => goTo(i));
+    dotNav.appendChild(b);
 });
 
-function updateChrome(){
-  const dots = dotNav.querySelectorAll('button');
-  dots.forEach((d,i) => d.classList.toggle('active', i===current));
-  progressFill.style.width = `${((current+1)/slides.length)*100}%`;
-  slideCounter.textContent = `${String(current+1).padStart(2,'0')} / ${slides.length}`;
-  const hue = slides[current].dataset.hue || 340;
-  document.documentElement.style.setProperty('--hue', hue);
+function updateChrome() {
+    const dots = dotNav.querySelectorAll('button');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+    slideCounter.textContent = `${String(current + 1).padStart(2, '0')} / ${slides.length}`;
+    const hue = slides[current].dataset.hue || 340;
+    document.documentElement.style.setProperty('--hue', hue);
 }
 
-function goTo(i){
-  current = Math.max(0, Math.min(slides.length-1, i));
-  slides[current].scrollIntoView({behavior:'smooth', inline:'start'});
-  updateChrome();
+function goTo(i) {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    slides[current].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+    updateChrome();
 }
 
-document.getElementById('prevBtn').addEventListener('click', () => goTo(current-1));
-document.getElementById('nextBtn').addEventListener('click', () => goTo(current+1));
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
 
 document.addEventListener('keydown', (e) => {
-  if(e.key==='ArrowRight' || e.key===' ') goTo(current+1);
-  if(e.key==='ArrowLeft') goTo(current-1);
+    if (e.key === 'ArrowRight' || e.key === ' ') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
 });
 
 let scrollTimeout;
 deck.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    const idx = Math.round(deck.scrollLeft / window.innerWidth);
-    if(idx !== current){ current = idx; updateChrome(); }
-  }, 90);
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        const idx = Math.round(deck.scrollLeft / window.innerWidth);
+        if (idx !== current) { current = idx; updateChrome(); }
+    }, 90);
 });
 
 updateChrome();
@@ -86,90 +92,108 @@ updateChrome();
 /* ---------------------------------------------------------------------
    2\. garment silhouette generator (reusable "picture")
    --------------------------------------------------------------------- */
-function dressSVG(colors, opts={}){
-  const [bodice, skirt, sash] = colors;
-  const w = opts.width || 130;
-  return `
-  <svg viewBox="0 0 120 210" width="${w}">
-    <ellipse cx="60" cy="20" rx="13" ry="14" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
-    <rect x="54" y="32" width="12" height="10" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
-    <path d="M38,42 Q60,34 82,42 L90,100 L30,100 Z" fill="${bodice}" stroke="#17171A" stroke-width="1.6"/>
-    <path d="M30,100 L90,100 L108,195 L12,195 Z" fill="${skirt}" stroke="#17171A" stroke-width="1.6"/>
-    <rect x="30" y="95" width="60" height="11" fill="${sash}" stroke="#17171A" stroke-width="1.2"/>
-    <path d="M38,44 Q22,52 24,78" fill="none" stroke="#17171A" stroke-width="1.6"/>
-    <path d="M82,44 Q98,52 96,78" fill="none" stroke="#17171A" stroke-width="1.6"/>
-  </svg>`;
+function dressSVG(colors, opts = {}) {
+    const [bodice, skirt, sash] = colors;
+    const w = opts.width || 130;
+    return `
+    <svg viewBox="0 0 120 210" width="${w}">
+        <ellipse cx="60" cy="20" rx="13" ry="14" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
+        <rect x="54" y="32" width="12" height="10" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
+        <path d="M38,42 Q60,34 82,42 L90,100 L30,100 Z" fill="${bodice}" stroke="#17171A" stroke-width="1.6"/>
+        <path d="M30,100 L90,100 L108,195 L12,195 Z" fill="${skirt}" stroke="#17171A" stroke-width="1.6"/>
+        <rect x="30" y="95" width="60" height="11" fill="${sash}" stroke="#17171A" stroke-width="1.2"/>
+        <path d="M38,44 Q22,52 24,78" fill="none" stroke="#17171A" stroke-width="1.6"/>
+        <path d="M82,44 Q98,52 96,78" fill="none" stroke="#17171A" stroke-width="1.6"/>
+    </svg>`;
 }
 
-function blazerSVG(colors, opts={}){
-  const [main, lapel, accent] = colors;
-  const w = opts.width || 130;
-  return `
-  <svg viewBox="0 0 120 200" width="${w}">
-    <ellipse cx="60" cy="20" rx="13" ry="14" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
-    <path d="M36,40 L60,52 L84,40 L100,68 L92,190 L28,190 L20,68 Z" fill="${main}" stroke="#17171A" stroke-width="1.6"/>
-    <path d="M60,52 L50,90 L60,80 L70,90 Z" fill="${accent}" stroke="#17171A" stroke-width="1.2"/>
-    <path d="M36,40 L54,58 L60,52 Z" fill="${lapel}" stroke="#17171A" stroke-width="1.2"/>
-    <path d="M84,40 L66,58 L60,52 Z" fill="${lapel}" stroke="#17171A" stroke-width="1.2"/>
-  </svg>`;
+function blazerSVG(colors, opts = {}) {
+    const [main, lapel, accent] = colors;
+    const w = opts.width || 130;
+    return `
+    <svg viewBox="0 0 120 200" width="${w}">
+        <ellipse cx="60" cy="20" rx="13" ry="14" fill="#EAD9C6" stroke="#17171A" stroke-width="1.4"/>
+        <path d="M36,40 L60,52 L84,40 L100,68 L92,190 L28,190 L20,68 Z" fill="${main}" stroke="#17171A" stroke-width="1.6"/>
+        <path d="M60,52 L50,90 L60,80 L70,90 Z" fill="${accent}" stroke="#17171A" stroke-width="1.2"/>
+        <path d="M36,40 L54,58 L60,52 Z" fill="${lapel}" stroke="#17171A" stroke-width="1.2"/>
+        <path d="M84,40 L66,58 L60,52 Z" fill="${lapel}" stroke="#17171A" stroke-width="1.2"/>
+    </svg>`;
 }
 
 /* ---------------------------------------------------------------------
-   3\. hero wheel + wheel diagram (slide 00 / 03)
+   3\. hero wheel + wheel diagram (slide 00 / 03) - ARTIST'S WHEEL (RYB)
    --------------------------------------------------------------------- */
-function rainbowConic(){
-  const stops = [];
-  for(let h=0; h<=360; h+=30){ stops.push(`hsl(${h} 78% 55%) ${(h/360)*100}%`); }
-  return `conic-gradient(from 0deg, ${stops.join(',')})`;
+
+// This is the new Artist's (RYB) Color Wheel definition
+const artistWheelHues = [
+    { angle: 0,   name: 'Red',           type: 'primary',   hex: '#FF1616' },
+    { angle: 30,  name: 'Red-Orange',    type: 'tertiary',  hex: '#FF641A' },
+    { angle: 60,  name: 'Orange',        type: 'secondary', hex: '#FFB31E' },
+    { angle: 90,  name: 'Yellow-Orange', type: 'tertiary',  hex: '#FFD922' },
+    { angle: 120, name: 'Yellow',        type: 'primary',   hex: '#FFFF26' },
+    { angle: 150, name: 'Yellow-Green',  type: 'tertiary',  hex: '#95D917' },
+    { angle: 180, name: 'Green',         type: 'secondary', hex: '#2AD00A' },
+    { angle: 210, name: 'Blue-Green',    type: 'tertiary',  hex: '#16A564' },
+    { angle: 240, name: 'Blue',          type: 'primary',   hex: '#086DDD' },
+    { angle: 270, name: 'Blue-Violet',   type: 'tertiary',  hex: '#5331C4' },
+    { angle: 300, name: 'Violet',        type: 'secondary', hex: '#9e0394' },
+    { angle: 330, name: 'Red-Violet',    type: 'tertiary',  hex: '#D10D53' }
+];
+
+function rainbowConic() {
+    const stops = artistWheelHues.map(c => `${c.hex} ${c.angle}deg`);
+    stops.push(`${artistWheelHues[0].hex} 360deg`);
+    return `conic-gradient(from 90deg, ${stops.join(', ')})`;
 }
 
 document.getElementById('heroWheel').style.background = rainbowConic();
 
-const wheelLabels = [
-  {h:0,name:'Red',type:'primary'},{h:30,name:'Red-Orange',type:'tertiary'},
-  {h:40,name:'Orange',type:'secondary'},{h:55,name:'Yellow-Orange',type:'tertiary'},
-  {h:60,name:'Yellow',type:'primary'},{h:100,name:'Yellow-Green',type:'tertiary'},
-  {h:130,name:'Green',type:'secondary'},{h:165,name:'Blue-Green',type:'tertiary'},
-  {h:210,name:'Blue',type:'primary'},{h:255,name:'Blue-Violet',type:'tertiary'},
-  {h:275,name:'Violet',type:'secondary'},{h:320,name:'Red-Violet',type:'tertiary'},
-];
-
-function polar(cx,cy,r,angleDeg){
-  const rad = (angleDeg-90) * Math.PI/180; // -90 so 0deg = top... actually align with conic-gradient(from 0deg) which starts at top
-  return { x: cx + r*Math.cos(angleDeg*Math.PI/180 - Math.PI/2), y: cy + r*Math.sin(angleDeg*Math.PI/180 - Math.PI/2) };
+function polar(cx, cy, r, angleDeg) {
+    const rad = (angleDeg - 90) * Math.PI / 180.0;
+    return {
+        x: cx + r * Math.cos(rad),
+        y: cy + r * Math.sin(rad)
+    };
 }
 
-function buildWheelSVG(size, showLabels){
-  const cx=size/2, cy=size/2, rDot=size*0.44, rLabel=size*0.49;
-  let dots='', labels='';
-  wheelLabels.forEach(w=>{
-    const p = polar(cx,cy,rDot,w.h);
-    const strokeW = w.type==='primary' ? 3 : 1.4;
-    dots += `<circle cx="${p.x}" cy="${p.y}" r="${w.type==='primary'?7:5}" fill="hsl(${w.h} 75% 52%)" stroke="#17171A" stroke-width="${strokeW}"/>`;
-    if(showLabels){
-      const lp = polar(cx,cy,rLabel,w.h);
-      labels += `<text x="${lp.x}" y="${lp.y}" font-family="Space Mono, monospace" font-size="${size*0.024}" text-anchor="middle" fill="#17171A" opacity="0.75">${w.name}</text>`;
-    }
-  });
-  return `<svg viewBox="0 0 ${size} ${size}" width="${size}">${dots}${labels}</svg>`;
+function buildWheelSVG(size, showLabels) {
+    const cx = size / 2, cy = size / 2, rDot = size * 0.42, rLabel = size * 0.49;
+    let dots = '', labels = '';
+
+    artistWheelHues.forEach(w => {
+        const p = polar(cx, cy, rDot, w.angle);
+        const strokeW = w.type === 'primary' ? 3 : 1.4;
+        const r = w.type === 'primary' ? 7 : 5;
+        dots += `<circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${w.hex}" stroke="#17171A" stroke-width="${strokeW}"/>`;
+
+        if (showLabels) {
+            const lp = polar(cx, cy, rLabel, w.angle);
+            labels += `<text x="${lp.x}" y="${lp.y}" font-family="Space Mono, monospace" font-size="${size * 0.03}" text-anchor="middle" dominant-baseline="central" fill="#17171A" opacity="0.75">${w.name}</text>`;
+        }
+    });
+
+    return `<svg viewBox="0 0 ${size} ${size}" width="${size}">${dots}${labels}</svg>`;
 }
 
-// build wheel diagram: a conic-gradient disc behind an SVG overlay of labelled hue markers
-function mountWheelDiagram(){
-  const holder = document.getElementById('wheelDiagram');
-  const size = 380;
-  holder.style.position='relative';
-  holder.style.width = size+'px';
-  holder.style.height = size+'px';
-  holder.innerHTML = `
-    <div style="position:absolute; inset:${size*0.14}px; border-radius:50%; background:${rainbowConic()}; border:2px solid #17171A;"></div>
-  `;
-  const svgWrap = document.createElement('div');
-  svgWrap.style.position='absolute'; svgWrap.style.inset='0';
-  svgWrap.innerHTML = buildWheelSVG(size, true);
-  holder.appendChild(svgWrap);
+function mountWheelDiagram() {
+    const holder = document.getElementById('wheelDiagram');
+    const size = 380;
+    holder.style.position = 'relative';
+    holder.style.width = size + 'px';
+    holder.style.height = size + 'px';
+
+    const conicBG = document.createElement('div');
+    conicBG.style.cssText = `position:absolute; inset:22%; border-radius:50%; background:${rainbowConic()}; border:2px solid #17171A;`;
+    holder.appendChild(conicBG);
+
+    const svgWrap = document.createElement('div');
+    svgWrap.style.cssText = `position:absolute; inset:0;`;
+    svgWrap.innerHTML = buildWheelSVG(size, true);
+    holder.appendChild(svgWrap);
 }
+
 mountWheelDiagram();
+
 
 /* ---------------------------------------------------------------------
    4\. HSL lab (slide 02)
@@ -184,19 +208,21 @@ const hexReadout = document.getElementById('hexReadout');
 const labSwatchBig = document.getElementById('labSwatchBig');
 const labGarment = document.getElementById('labGarment');
 
-function renderLab(){
-  const h = +hueSlider.value, s = +satSlider.value, l = +lightSlider.value;
-  hueVal.textContent = h+'°'; satVal.textContent = s+'%'; lightVal.textContent = l+'%';
-  const color = hsl(h,s,l);
-  const hex = hslToHex(h,s,l);
-  hexReadout.textContent = hex;
-  labSwatchBig.style.background = color;
-  const shade1 = hsl(h,s,Math.max(8,l-22));
-  const shade2 = hsl(h,Math.max(0,s-25),Math.min(92,l+18));
-  labGarment.innerHTML = dressSVG([color, shade1, shade2], {width:130}) + '<p class="figure-cap">Garment</p>';
-  document.documentElement.style.setProperty('--hue', h);
+function renderLab() {
+    const h = +hueSlider.value, s = +satSlider.value, l = +lightSlider.value;
+    hueVal.textContent = h + '°';
+    satVal.textContent = s + '%';
+    lightVal.textContent = l + '%';
+    const color = hsl(h, s, l);
+    const hex = hslToHex(h, s, l);
+    hexReadout.textContent = hex;
+    labSwatchBig.style.background = color;
+    const shade1 = hsl(h, s, Math.max(8, l - 22));
+    const shade2 = hsl(h, Math.max(0, s - 25), Math.min(92, l + 18));
+    labGarment.innerHTML = dressSVG([color, shade1, shade2], { width: 130 }) + '<p class="figure-cap">Garment</p>';
+    document.documentElement.style.setProperty('--hue', h);
 }
-[hueSlider,satSlider,lightSlider].forEach(el => el.addEventListener('input', renderLab));
+[hueSlider, satSlider, lightSlider].forEach(el => el.addEventListener('input', renderLab));
 renderLab();
 
 /* ---------------------------------------------------------------------
@@ -250,18 +276,29 @@ const harmonyGarmentEl = document.getElementById('harmonyGarment');
 
 function renderHarmony(key){
   const def = harmonyDefs[key];
-  const hues = def.hues(harmonyBaseHue).map(h => ((h%360)+360)%360);
-  const colors = hues.map((h,i) => hsl(h, def.ss[i], def.ls[i]));
+  const { h } = hexToHsl(builderColor.value);
+  const angles = def.hues(h).map(angle => ((angle%360)+360)%360);
+
+  const colors = angles.map((angle,i) => {
+    // Find the closest two colors on the artist wheel
+    let a = [...artistWheelHues].sort((c1, c2) => Math.abs(c1.angle - angle) - Math.abs(c2.angle - angle))[0];
+    return hsl(hexToHsl(a.hex).h, def.ss[i], def.ls[i]);
+  });
+  
+  const hexes = colors.map(c => {
+      const {h,s,l} = hexToHsl(c);
+      return hslToHex(h,s,l);
+  });
 
   harmonyDescEl.textContent = def.desc;
   harmonySwatchesEl.innerHTML = colors.map((c,i) => `
     <div class="swatch" style="background:${c};">
-      <span class="swatch-label">${hslToHex(hues[i],def.ss[i],def.ls[i])}</span>
+      <span class="swatch-label">${hexes[i]}</span>
     </div>`).join('');
 
   const size = 150, cx=size/2, cy=size/2, r=size*0.38;
-  let dots = hues.map((h,i)=>{
-    const p = polar(cx,cy,r,h);
+  let dots = angles.map((angle,i)=>{
+    const p = polar(cx,cy,r,angle);
     return `<circle cx="${p.x}" cy="${p.y}" r="8" fill="${colors[i]}" stroke="#17171A" stroke-width="2"/>`;
   }).join('');
 
@@ -273,13 +310,14 @@ function renderHarmony(key){
 }
 
 harmonyTabsEl.addEventListener('click', (e) => {
-  const btn = e.target.closest('button');
-  if(!btn) return;
-  harmonyTabsEl.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderHarmony(btn.dataset.h);
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    harmonyTabsEl.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderHarmony(btn.dataset.h);
 });
 renderHarmony('mono');
+
 
 /* ---------------------------------------------------------------------
    6\. seasonal palettes (slide 06)
@@ -341,11 +379,11 @@ document.getElementById('quizList').innerHTML = quiz.map((item,i) => `
   </div>`).join('');
 
 document.getElementById('quizList').addEventListener('click', (e) => {
-  const btn = e.target.closest('.quiz-toggle');
-  if(!btn) return;
-  const item = btn.closest('.quiz-item');
-  item.classList.toggle('open');
-  btn.textContent = item.classList.contains('open') ? 'Hide discussion notes' : 'Show discussion notes';
+    const btn = e.target.closest('.quiz-toggle');
+    if (!btn) return;
+    const item = btn.closest('.quiz-item');
+    item.classList.toggle('open');
+    btn.textContent = item.classList.contains('open') ? 'Hide discussion notes' : 'Show discussion notes';
 });
 
 /* ---------------------------------------------------------------------
@@ -357,28 +395,54 @@ const builderRandom = document.getElementById('builderRandom');
 const builderSwatches = document.getElementById('builderSwatches');
 const builderGarments = document.getElementById('builderGarments');
 
-function renderBuilder(){
-  const {h} = hexToHsl(builderColor.value);
-  const key = builderHarmony.value;
-  const def = harmonyDefs[key];
-  const hues = def.hues(h).map(hh => ((hh%360)+360)%360);
-  const colors = hues.map((hh,i) => hsl(hh, def.ss[i], def.ls[i]));
-  const hexes = hues.map((hh,i) => hslToHex(hh, def.ss[i], def.ls[i]));
+function renderBuilder() {
+    const baseHex = builderColor.value;
+    const baseHsl = hexToHsl(baseHex);
+    
+    // Find the closest angle on the artist wheel to the selected color's hue
+    const baseAngle = [...artistWheelHues].sort((a, b) => {
+        let diffA = Math.min(Math.abs(a.angle - baseHsl.h), 360 - Math.abs(a.angle - baseHsl.h));
+        let diffB = Math.min(Math.abs(b.angle - baseHsl.h), 360 - Math.abs(b.angle - baseHsl.h));
+        return diffA - diffB;
+    })[0].angle;
 
-  builderSwatches.innerHTML = colors.map((c,i) => `
+    const key = builderHarmony.value;
+    const def = harmonyDefs[key];
+    const angles = def.hues(baseAngle).map(a => ((a % 360) + 360) % 360);
+
+    const colors = angles.map((angle, i) => {
+        // For each calculated angle, find the closest hue on the artist wheel
+        const closestHue = artistWheelHues.reduce((prev, curr) => {
+            const prevDiff = Math.min(Math.abs(prev.angle - angle), 360 - Math.abs(prev.angle - angle));
+            const currDiff = Math.min(Math.abs(curr.angle - angle), 360 - Math.abs(curr.angle - angle));
+            return (currDiff < prevDiff) ? curr : prev;
+        });
+        return hsl(hexToHsl(closestHue.hex).h, def.ss[i], def.ls[i]);
+    });
+    
+    const hexes = colors.map(c => hslToHex(hexToHsl(c).h, hexToHsl(c).s, hexToHsl(c).l));
+
+    builderSwatches.innerHTML = colors.map((c, i) => `
     <div class="swatch lg" style="background:${c};"><span class="swatch-label">${hexes[i]}</span></div>`).join('');
 
-  builderGarments.innerHTML =
-    dressSVG([colors[0], colors[1]||colors[0], colors[2]||colors[0]], {width:120}) +
-    blazerSVG([colors[colors.length-1], colors[0], colors[1]||colors[0]], {width:120});
+    builderGarments.innerHTML =
+        dressSVG([colors[0], colors[1] || colors[0], colors[2] || colors[0]], { width: 120 }) +
+        blazerSVG([colors[colors.length - 1], colors[0], colors[1] || colors[0]], { width: 120 });
+
+    // Update harmony display on the small wheel
+    renderHarmony(key);
 }
+
+
 builderColor.addEventListener('input', renderBuilder);
 builderHarmony.addEventListener('change', renderBuilder);
 builderRandom.addEventListener('click', () => {
-  const h = Math.floor(Math.random()*360);
-  builderColor.value = hslToHex(h, 70, 50);
-  const keys = Object.keys(harmonyDefs);
-  builderHarmony.value = keys[Math.floor(Math.random()*keys.length)];
-  renderBuilder();
+    const randomHue = artistWheelHues[Math.floor(Math.random() * artistWheelHues.length)];
+    builderColor.value = randomHue.hex;
+    const keys = Object.keys(harmonyDefs);
+    builderHarmony.value = keys[Math.floor(Math.random() * keys.length)];
+    renderBuilder();
 });
+
+// Initial render
 renderBuilder();
